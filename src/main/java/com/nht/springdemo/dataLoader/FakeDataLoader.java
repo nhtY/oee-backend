@@ -1,7 +1,7 @@
 package com.nht.springdemo.dataLoader;
 
 import com.nht.springdemo.entities.OeePerformance;
-import com.nht.springdemo.repositories.OeePerformanceRepository;
+import com.nht.springdemo.services.OeePerformanceService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
@@ -17,13 +17,13 @@ import java.util.Random;
 public class FakeDataLoader implements DisposableBean {
     Logger log= LoggerFactory.getLogger(this.getClass().getName());
 
-    private final OeePerformanceRepository oeePerformanceRepository;
+    private final OeePerformanceService oeePerformanceService;
     private final Thread loaderThread;
 
 
     @Autowired
-    public FakeDataLoader(OeePerformanceRepository oeePerformanceRepository) {
-        this.oeePerformanceRepository = oeePerformanceRepository;
+    public FakeDataLoader(OeePerformanceService oeePerformanceService) {
+        this.oeePerformanceService = oeePerformanceService;
         this.loaderThread = initLoaderThread();
     }
 
@@ -39,10 +39,10 @@ public class FakeDataLoader implements DisposableBean {
                 log.debug("In loop of Runnable...");
                 Random random = new Random(System.currentTimeMillis());
 
-                oeePerformanceRepository.deleteAllByCreatedAt(LocalDateTime.now().minusSeconds(20));
+                oeePerformanceService.deleteAllByCreatedAtBefore(LocalDateTime.now().minusSeconds(20));
 
                 hatali += random.nextInt(3);
-                oeePerformanceRepository.save(
+                oeePerformanceService.save(
                         OeePerformance.builder()
                         .ggOee(random.nextDouble() * 10 + 60)
                         .gOee1s(random.nextDouble() * 20 + 60)
@@ -87,14 +87,15 @@ public class FakeDataLoader implements DisposableBean {
         log.debug("## PreDestroy");
         log.debug("Thread will be interrupted");
 
-        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isInterrupted());
+        log.debug("Is {} interrupted? {}, isAlive {}", this.loaderThread.getName(), this.loaderThread.isInterrupted(), loaderThread.isAlive());
         loaderThread.interrupt();
+        loaderThread.wait();
     }
 
     @Override
     public void destroy() throws Exception {
         log.debug("## DisposableBean.destroy: The FakeDataLoader bean has been terminated");
-        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isAlive());
+        log.debug("Is {} interrupted? {}, is alive {}", this.loaderThread.getName(), this.loaderThread.isInterrupted(), loaderThread.isAlive());
     }
 
 }
