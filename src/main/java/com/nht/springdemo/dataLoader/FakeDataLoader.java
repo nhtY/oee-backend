@@ -39,7 +39,7 @@ public class FakeDataLoader implements DisposableBean {
                 log.debug("In loop of Runnable...");
                 Random random = new Random(System.currentTimeMillis());
 
-                oeePerformanceService.deleteAllByCreatedAtBefore(LocalDateTime.now().minusSeconds(20));
+                // oeePerformanceService.deleteAllByCreatedAtBefore(LocalDateTime.now().minusSeconds(20));
 
                 hatali += random.nextInt(3);
                 oeePerformanceService.save(
