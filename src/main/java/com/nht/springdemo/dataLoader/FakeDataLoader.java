@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 @Component
-public class FakeDataLoader { // implements DisposableBean
+public class FakeDataLoader implements DisposableBean {
     Logger log= LoggerFactory.getLogger(this.getClass().getName());
 
     private final OeePerformanceRepository oeePerformanceRepository;
-    //private final Thread loaderThread;
+    private final Thread loaderThread;
 
 
     @Autowired
     public FakeDataLoader(OeePerformanceRepository oeePerformanceRepository) {
         this.oeePerformanceRepository = oeePerformanceRepository;
-        //this.loaderThread = initLoaderThread();
+        this.loaderThread = initLoaderThread();
     }
 
     private Thread initLoaderThread() {
@@ -74,27 +74,27 @@ public class FakeDataLoader { // implements DisposableBean
         return thread;
     }
 
-//    @PostConstruct
-//    public void postConstruct() {
-//        log.debug("## PostConstruct is called");
-//        log.debug("Thread Name:  {}", this.loaderThread.getName());
-//        log.debug("Thread is being started...");
-//        this.loaderThread.start();
-//    }
-//
-//    @PreDestroy
-//    public void preDestroy() throws InterruptedException {
-//        log.debug("## PreDestroy");
-//        log.debug("Thread will be interrupted");
-//
-//        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isInterrupted());
-//        loaderThread.interrupt();
-//    }
-//
-//    @Override
-//    public void destroy() throws Exception {
-//        log.debug("## DisposableBean.destroy: The FakeDataLoader bean has been terminated");
-//        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isAlive());
-//    }
+    @PostConstruct
+    public void postConstruct() {
+        log.debug("## PostConstruct is called");
+        log.debug("Thread Name:  {}", this.loaderThread.getName());
+        log.debug("Thread is being started...");
+        this.loaderThread.start();
+    }
+
+    @PreDestroy
+    public void preDestroy() throws InterruptedException {
+        log.debug("## PreDestroy");
+        log.debug("Thread will be interrupted");
+
+        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isInterrupted());
+        loaderThread.interrupt();
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        log.debug("## DisposableBean.destroy: The FakeDataLoader bean has been terminated");
+        log.debug("Is {} interrupted? {}", this.loaderThread.getName(), this.loaderThread.isAlive());
+    }
 
 }
