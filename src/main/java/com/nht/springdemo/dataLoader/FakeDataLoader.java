@@ -1,7 +1,8 @@
 package com.nht.springdemo.dataLoader;
 
-import com.nht.springdemo.entities.OeePerformance;
+import com.nht.springdemo.model.OeePerformanceDTO;
 import com.nht.springdemo.services.OeePerformanceService;
+import com.nht.springdemo.services.OeePerformanceServiceImpl;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class FakeDataLoader implements DisposableBean {
 
 
     @Autowired
-    public FakeDataLoader(OeePerformanceService oeePerformanceService) {
+    public FakeDataLoader(OeePerformanceServiceImpl oeePerformanceService) {
         this.oeePerformanceService = oeePerformanceService;
         this.loaderThread = initLoaderThread();
     }
@@ -43,7 +44,7 @@ public class FakeDataLoader implements DisposableBean {
 
                 hatali += random.nextInt(3);
                 oeePerformanceService.save(
-                        OeePerformance.builder()
+                        OeePerformanceDTO.builder()
                         .ggOee(random.nextDouble() * 10 + 60)
                         .gOee1s(random.nextDouble() * 20 + 60)
                         .ttGp(random.nextDouble() * 5)
