@@ -6,7 +6,6 @@ import com.nht.springdemo.utils.OeePerformanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +34,7 @@ public class OeePerformanceServiceImpl implements OeePerformanceService {
 
     public OeePerformanceDTO getCurrentOeeData() {
         return mapper.entityToDto(
-                oeePerformanceRepository.findAll(Pageable.ofSize(1)).getContent().get(0)
+                oeePerformanceRepository.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "createdAt"))).getContent().get(0)
         );
     }
 
@@ -45,7 +44,7 @@ public class OeePerformanceServiceImpl implements OeePerformanceService {
                 .map(mapper::entityToDto)
                 .collect(Collectors.toList());
     }
-    
+
     public Page<OeePerformanceDTO> getLastTwentyOeeData() {
         return oeePerformanceRepository.findAll(
                 PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createdAt"))

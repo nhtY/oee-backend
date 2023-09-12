@@ -15,7 +15,7 @@ public class OeePerformanceMapperImpl implements OeePerformanceMapper {
     private final DecimalFormat decimalFormat;
 
     public OeePerformanceMapperImpl() {
-        this.decimalFormat = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.forLanguageTag("tr-TR")));
+        this.decimalFormat = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.forLanguageTag("us-US")));
     }
 
     @Override
