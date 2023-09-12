@@ -1,6 +1,5 @@
 package com.nht.springdemo.services;
 
-import com.nht.springdemo.entities.OeePerformance;
 import com.nht.springdemo.model.OeePerformanceDTO;
 import org.springframework.data.domain.Page;
 
@@ -11,10 +10,10 @@ public interface OeePerformanceService {
 
     OeePerformanceDTO save(OeePerformanceDTO oeePerformanceDTO);
 
-    OeePerformance getCurrentOeeData();
-    List<OeePerformance> getAllOeeData();
+    OeePerformanceDTO getCurrentOeeData();
+    List<OeePerformanceDTO> getAllOeeData();
 
-    Page<OeePerformance> getLastTwentyOeeData();
+    Page<OeePerformanceDTO> getLastTwentyOeeData();
 
     void deleteAll();
     void deleteAllByCreatedAtBefore(LocalDateTime end);
