@@ -42,7 +42,7 @@ public class FakeDataLoader implements DisposableBean {
 
                 // oeePerformanceService.deleteAllByCreatedAtBefore(LocalDateTime.now().minusSeconds(20));
 
-                hatali += random.nextInt(3);
+                hatali += random.nextInt(2);
                 oeePerformanceService.save(
                         OeePerformanceDTO.builder()
                         .ggOee(random.nextDouble() * 10 + 60)

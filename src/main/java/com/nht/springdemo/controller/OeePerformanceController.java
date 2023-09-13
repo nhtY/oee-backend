@@ -26,8 +26,8 @@ public class OeePerformanceController {
         return ResponseEntity.ok(oeePerformanceService.getAllOeeData());
     }
 
-    @GetMapping("/last-20")
-    public ResponseEntity getlLastTwenty() {
-        return ResponseEntity.ok(oeePerformanceService.getLastTwentyOeeData());
+    @GetMapping("/last-12")
+    public ResponseEntity getLastTwenty() {
+        return ResponseEntity.ok(oeePerformanceService.getLastTwelveOeeData());
     }
 }

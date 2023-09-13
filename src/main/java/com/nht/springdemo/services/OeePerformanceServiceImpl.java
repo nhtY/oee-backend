@@ -45,9 +45,9 @@ public class OeePerformanceServiceImpl implements OeePerformanceService {
                 .collect(Collectors.toList());
     }
 
-    public Page<OeePerformanceDTO> getLastTwentyOeeData() {
+    public Page<OeePerformanceDTO> getLastTwelveOeeData() {
         return oeePerformanceRepository.findAll(
-                PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createdAt"))
+                PageRequest.of(0, 12, Sort.by(Sort.Direction.DESC, "createdAt"))
         ).map(mapper::entityToDto); // this is the map() method of the Page abject.
     }
 

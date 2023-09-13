@@ -13,7 +13,7 @@ public interface OeePerformanceService {
     OeePerformanceDTO getCurrentOeeData();
     List<OeePerformanceDTO> getAllOeeData();
 
-    Page<OeePerformanceDTO> getLastTwentyOeeData();
+    Page<OeePerformanceDTO> getLastTwelveOeeData();
 
     void deleteAll();
     void deleteAllByCreatedAtBefore(LocalDateTime end);
