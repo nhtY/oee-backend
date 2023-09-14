@@ -42,7 +42,7 @@ public class FakeDataLoader implements DisposableBean {
 
                 // oeePerformanceService.deleteAllByCreatedAtBefore(LocalDateTime.now().minusSeconds(20));
 
-                hatali += random.nextInt(2);
+                hatali += random.nextInt(10) > 7? 1: 0; // less likely to have defected product 3/10
                 oeePerformanceService.save(
                         OeePerformanceDTO.builder()
                         .ggOee(random.nextDouble() * 10 + 60)
@@ -58,7 +58,7 @@ public class FakeDataLoader implements DisposableBean {
                 );
 
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(48000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     log.debug("Error: {}\t|\tThread Interrupted - status: {}.", e.getMessage(), Thread.currentThread().isInterrupted());
